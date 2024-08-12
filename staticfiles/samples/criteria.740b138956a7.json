@@ -1,0 +1,46 @@
+{
+    "Criterion A": {
+        "title": "Knowledge, understanding, and interpretation",
+        "levels": {
+            "0": "The work does not reach a standard described by the descriptors below.",
+            "1-2": "There is little knowledge and understanding of the works in relation to the question answered. There is little meaningful comparison and contrast of works used in relation to the question.",
+            "3-4": "There is some knowledge and understanding of the works in relation to the question answered. There is a superficial attempt to compare and contrast the works used in relation to the question.",
+            "5-6": "There is satisfactory knowledge and understanding of the works and an interpretation of their implications in relation to the question answered. The essay offers a satisfactory interpretation of the similarities and differences between the works used in relation to the question.",
+            "7-8": "There is good knowledge and understanding of the works and a sustained interpretation of their implications in relation to the question answered. The essay offers a convincing interpretation of the similarities and differences between the works used in relation to the question.",
+            "9-10": "There is perceptive knowledge and understanding of the works and a persuasive interpretation of their implications in relation to the question answered. The essay offers an insightful interpretation of the similarities and differences between the works used in relation to the question."
+        }
+    },
+    "Criterion B": {
+        "title": "Analysis and evaluation",
+        "levels": {
+            "0": "The work does not reach a standard described by the descriptors below.",
+            "1-2": "The essay is descriptive and/or demonstrates little relevant analysis of textual features and/or broader authorial choices.",
+            "3-4": "The essay demonstrates some appropriate analysis of textual features and/or broader authorial choices, but is reliant on description. There is a superficial comparison and contrast of the authors' choices in the works selected.",
+            "5-6": "The essay demonstrates a generally appropriate analysis of textual features and/or broader authorial choices. There is an adequate comparison and contrast of the authors' choices in the works selected.",
+            "7-8": "The essay demonstrates an appropriate and at times insightful analysis of textual features and/or broader authorial choices. There is a good evaluation of how such features and/or choices shape meaning. There is a good comparison and contrast of the authors' choices in the works selected.",
+            "9-10": "The essay demonstrates a consistently insightful and convincing analysis of textual features and/or broader authorial choices. There is a very good evaluation of how such features and/or choices contribute to meaning. There is a very good comparison and contrast of the authors' choices in the works selected."
+        }
+    },
+    "Criterion C": {
+        "title": "Focus and organization",
+        "levels": {
+            "0": "The work does not reach a standard described by the descriptors below.",
+            "1": "The essay rarely focuses on the task. There are few connections between ideas.",
+            "2": "The essay only sometimes focuses on the task, and treatment of the works may be unbalanced. There are some connections between ideas, but these are not always coherent.",
+            "3": "The essay maintains a focus on the task, despite some lapses; treatment of the works is mostly balanced. The development of ideas is mostly logical; ideas are generally connected in a cohesive manner.",
+            "4": "The essay maintains a mostly clear and sustained focus on the task; treatment of the works is balanced. The development of ideas is logical; ideas are cohesively connected.",
+            "5": "The essay maintains a clear and sustained focus on the task; treatment of the works is well-balanced. The development of ideas is logical and convincing; ideas are connected in a cogent manner."
+        }
+    },
+    "Criterion D": {
+        "title": "Language",
+        "levels": {
+            "0": "The work does not reach a standard described by the descriptors below.",
+            "1": "Language is rarely clear and appropriate; there are many errors in grammar, vocabulary, and sentence construction and little sense of register and style.",
+            "2": "Language is sometimes clear and carefully chosen; grammar, vocabulary, and sentence construction are fairly accurate, although errors and inconsistencies are apparent; the register and style are to some extent appropriate to the task.",
+            "3": "Language is clear and carefully chosen with an adequate degree of accuracy in grammar, vocabulary, and sentence construction despite some lapses; register and style are mostly appropriate to the task.",
+            "4": "Language is clear and carefully chosen, with a good degree of accuracy in grammar, vocabulary, and sentence construction; register and style are consistently appropriate to the task.",
+            "5": "Language is very clear, effective, carefully chosen, and precise, with a high degree of accuracy in grammar, vocabulary, and sentence construction; register and style are effective and appropriate to the task."
+        }
+    }
+}
