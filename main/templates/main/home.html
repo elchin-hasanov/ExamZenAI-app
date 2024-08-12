@@ -110,11 +110,11 @@
     }
     
     footer {
-      background-color:#fff;
+      background-color:#f5f3f2;
       color: #E0E5EC;
       margin-top: 75px;
       padding:5px 0;
-      /* position: fixed; */
+      {% comment %} position: fixed;  {% endcomment %}
       bottom: 0;
       width: 100%;
       z-index: 999; /* Ensure footer stays above content */
@@ -138,7 +138,7 @@
           <img src="https://wayyy.co/site/img/icon-home-header-stars.svg" alt="Stars icon">
           Practice questions and use AI tools to prep for IB &#128640;
         </p>
-        <h1>Mix generated questions and AI tools to <span style="background-color:#cbf2d4; color:#55c26e; margin:0px; border-radius:9px; padding:0px">boost</span> your <span><i><u>IB score</u></i></span></h1>
+        <h1>Mix generated questions and AI tools to <span style="background-color:#cbf2d4; color:#55c26e; margin:0px; border-radius:9px; padding:0px 10px">boost</span> your <span><i><u>IB score</u></i></span></h1>
         
         <div class="button-container">
           {% if user.is_authenticated %}
