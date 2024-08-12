@@ -12,7 +12,7 @@ from django.shortcuts import render, redirect, get_object_or_404
 from django.contrib.auth.decorators import login_required
 from .models import Question, Subject
 import random
-from .models import User, Reward
+from .models import User, Reward, Test
 import json
 import re
 import openai
@@ -203,6 +203,9 @@ def profile(request):
     
     return render(request, 'main/profile.html', context)
 
+from django.contrib.auth.models import User
+from main.models import Test
+
 @login_required
 def feedback(request):
     selected_question_id = request.POST.get('selected_question_id', '')
@@ -212,7 +215,7 @@ def feedback(request):
     admin_user = User.objects.get(username='adminuser')
     latest_test = Test.objects.filter(user=admin_user).order_by('-created_at').first()
 
-    openai.api_key = f'{latest_test.answers}'
+    openai.api_key = latest_test.answers
     criteria_path = finders.find('samples/criteria.json')
 
     # Load the criteria
