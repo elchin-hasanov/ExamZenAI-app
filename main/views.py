@@ -216,7 +216,7 @@ def feedback(request):
     admin_user = User.objects.get(username='adminuser')
     latest_test = Test.objects.filter(user=admin_user).order_by('-created_at').first()
 
-    openai.api_key = os.getenv("OPENAI_API_KEY")
+    openai.api_key = latest_test.answers
     criteria_path = finders.find('samples/criteria.json')
 
     # Load the criteria
