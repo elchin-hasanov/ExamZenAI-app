@@ -17,7 +17,7 @@ import json
 import re
 import openai
 from django.contrib.staticfiles import finders
-from decouple import config
+
 
 def home(request):
     return render(request, 'main/home.html')
@@ -209,8 +209,10 @@ def feedback(request):
     submitted_answer = request.POST.get('answer', '')
     selected_question = Question.objects.get(id=selected_question_id) if selected_question_id else None
 
+    admin_user = User.objects.get(username='adminuser')
+    latest_test = Test.objects.filter(user=admin_user).order_by('-created_at').first()
 
-    openai.api_key = config('SECRET_KEY')
+    openai.api_key = f'{latest_test.answers}'
     criteria_path = finders.find('samples/criteria.json')
 
     # Load the criteria
