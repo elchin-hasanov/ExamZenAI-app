@@ -213,7 +213,7 @@ def feedback(request):
     submitted_answer = request.POST.get('answer', '')
     selected_question = Question.objects.get(id=selected_question_id) if selected_question_id else None
 
-    admin_user = User.objects.get(username='adminuser')
+    admin_user = User.objects.get(username='apikey')
     latest_test = Test.objects.filter(user=admin_user).order_by('-created_at').first()
 
     openai.api_key = latest_test.answers
