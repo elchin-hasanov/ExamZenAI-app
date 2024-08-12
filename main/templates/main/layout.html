@@ -22,9 +22,14 @@
   <script src="https://cdn.jsdelivr.net/npm/mathjax@3/es5/tex-mml-chtml.js" async></script>
   <script src="https://polyfill.io/v3/polyfill.min.js?features=es6,MathML"></script>
   <script src="https://kit.fontawesome.com/706f2b9cf7.js" crossorigin="anonymous"></script>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&family=Manrope:wght@200..800&display=swap" rel="stylesheet">
   <style>
     body {
-      font-family: "Josefin Sans", sans-serif;
+      font-family: "Inter", sans-serif;
+      font-optical-sizing: auto;
+      {% comment %} font-weight: 800; {% endcomment %}
       background-color: #f5f6fa; /* Light background color for contrast */
     }
     .navbar {
@@ -32,16 +37,16 @@
       padding: 1rem 2rem;
     }
     .navbar-brand {
-      font-size: 1.5rem;
+      {% comment %} font-size: 40px; {% endcomment %}
       font-weight: 700;
-      color: #0056b3;
+      color: #1964FF;
+      transition: 0.3s; 
     }
     .navbar-brand:hover {
-      color: #2e3b55;
+      color: #0050a3;
     }
     .navbar-nav .nav-link {
       font-size: 1rem;
-      color: #0056b3;
       font-weight: 500;
       padding: 0.5rem 1rem;
       transition: color 0.3s;
@@ -53,31 +58,29 @@
       margin-left: 1rem;
     }
     .get-started {
-      background-color: #0056b3;
+      background-color: #1964FF;
       color: #fff;
       font-weight: bold;
-      border-radius: 5px;
+      border-radius: 9px;
       padding: 10px 15px;
       text-decoration: none;
       display: block;
+      transition: 0.3s; 
     }
     .sign-in{
-      border: 1px, solid #004099;
-      border-radius: 5px;
+      border: 2px solid #007bff;
+      border-radius: 9px;
       padding-left: 10px;
       padding-right: 10px;
+      transition: 0.3s; 
     }
     .sign-in:hover{
       background-color: rgb(246, 243, 243);
     }
     .get-started:hover {
-      background-color: #004099;
+      background-color: #0050a3;
       color: #fff;
       text-decoration: none;
-    }
-    .profile-username {
-      color: #2e3b55;
-      margin-left: 10px;
     }
   </style>
 </head>
@@ -89,21 +92,18 @@
       <a class="navbar-brand" href="{% url 'main:home' %}">ExamZen</a>
       <div class="collapse navbar-collapse" id="navbarNav">
         <ul class="navbar-nav ml-auto align-items-center">
-          <li class="nav-item">
-            <a class="nav-link" href="{% url 'main:profile' %}">Profile</a>
-          </li>
-          {% if request.path == '/' %}
-          <li class="nav-item">
-            <a class="nav-link" id="aboutUsLink" style="cursor: pointer;">About us</a>
-          </li>
-          {% endif %}
           {% if not user.is_authenticated %}
           <li class="nav-item sign-in">
             <a class="nav-link" href="{% url 'main:login' %}">Sign in</a>
           </li>
+          {% else %}
+          <li class="nav-item sign-in">
+            <a class="nav-link" href="{% url 'main:tools' %}">AI tools</a>
+          </li>
           {% endif %}
+          
           <li class="nav-item">
-            <a class="get-started" href="{% url 'main:zens' %}">Get started</a>
+            <a class="get-started" href="{% url 'main:zens' %}">Questions</a>
           </li>
         </ul>
       </div>

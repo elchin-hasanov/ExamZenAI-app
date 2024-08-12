@@ -5,11 +5,13 @@
 
 
 <div class="container mt-5">
+    {% if subject.name == "Physics" or subject.name ==  "Math" or subject.name ==  "Chemistry" %}
     <div class="fixed-top mt-5"  style="margin-left: 35px;">
         <button class="btn btn-secondary mb-3" style="background-color:#2e3b55; padding: 10px 40px; margin-top: 50px;" onclick="openFormulaBooklet()">
             <i class="fa fa-book"></i>
         </button>
     </div>
+    {% endif %}
     <!-- Button to open the formula booklet -->
     {% if subject.name == "History" or subject.name ==  "English" %}
         <h1 class="text-center mb-5" style="margin-top: 100px; font-size: 35px;">Generated Paper 2 </h1>
@@ -39,29 +41,39 @@
             </div>
         </div>
     
+
+
     {% elif subject.name == "English" %}
-        <div>
-            {% for question in questions %}
-                <div class="card mb-3">
+
+        <form method="POST" action="{% url 'main:feedback' %}">
+            {% csrf_token %}
+            <div>
+                {% for question in questions %}
+                <div class="card mb-3 question-card" style="cursor: pointer;" onclick="selectQuestion('{{ question.id }}')">
                     <div class="card-body">
                         <p class="card-text">{{ forloop.counter }}. {{ question.text }}</p>
                         <div class="radio-toolbar">
                             {% for choice in question.choices_list %}
-                                <div class="form-check">
-                                    <input class="form-check-input custom-radio" type="radio" id="choice{{ question.id }}_{{ forloop.counter }}" name="answers_{{ question.id }}" value="{{ choice }}" required>
-                                    <label class="form-check-label custom-radio-label" for="choice{{ question.id }}_{{ forloop.counter }}">{{ choice }}</label>
-                                </div>
+                            <div class="form-check">
+                                <input class="form-check-input custom-radio" type="radio" id="choice{{ question.id }}_{{ forloop.counter }}" name="answers_{{ question.id }}" value="{{ choice }}" required>
+                                <label class="form-check-label custom-radio-label" for="choice{{ question.id }}_{{ forloop.counter }}">{{ choice }}</label>
+                            </div>
                             {% endfor %}
                         </div>
                     </div>
                 </div>
-            {% endfor %}
-        </div>
-        <div class="row justify-content-center mt-4">
-            <div class="col-md-6 mb-3">
-                <a href="{% url 'main:zens' %}" class="btn btn-danger btn-block">End the Exam</a>
+                {% endfor %}
+                <input type="hidden" name="selected_question_id" id="selected_question_id" required>
+                <textarea class="form-control" name="answer" rows="16" required></textarea>
             </div>
-        </div>
+            <div class="row justify-content-center mt-4">
+                <div class="col-md-6 mb-3">
+                    <button type="submit" class="btn btn-primary btn-block" style="background-color: #2e3b55;border: none;">Submit The Exam</button>
+                </div>
+            </div>
+        </form>
+
+
     
     {% else %}
         <form method="post" action="{% url 'main:submit_exam' %}">
@@ -132,10 +144,10 @@
             </div>
             <div class="modal-body">
                 {% if subject.name == "Physics" %}
-                    <iframe src="{% static 'images/formulas.pdf' %}" width="100%" height="600px"></iframe>
+                    <iframe src="{% static 'images/physicsbook.pdf' %}" width="100%" height="600px"></iframe>
                 {% elif subject.name == "Math" %}
                     <iframe src="{% static 'images/formulamath.pdf' %}" width="100%" height="600px"></iframe>
-                {% else %}
+                {% elif subject.name == "Chemistry" %}
                     <iframe src="{% static 'images/chemistry.pdf' %}" width="100%" height="600px"></iframe>
                 {% endif %}
             </div>
@@ -153,12 +165,24 @@
     function openFormulaBooklet() {
         $('#formulaModal').modal('show');
     }
+
+    function selectQuestion(questionId) {
+            document.getElementById('selected_question_id').value = questionId;
+            document.querySelectorAll('.question-card').forEach(card => {
+                card.classList.remove('selected');
+            });
+            document.querySelector(`.question-card[onclick="selectQuestion('${questionId}')"]`).classList.add('selected');
+        }
 </script>
 
 <style>
-    body{
-        font-family: "Manrope", sans-serif;
+    card-text{
+        font-weight:bold;
     }
+
+    .selected {
+            border: 2px solid #2e3b55;
+        }
 
     .radio-toolbar {
         display: flex;

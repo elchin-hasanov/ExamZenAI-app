@@ -6,16 +6,15 @@
 <html lang="en">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>ExamZen</title>
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
   <style>
     /* Custom styles for the home page */
-    body {
-      background-color: #f5f5f5; /* Light grey background color */
-      color: #333; /* Main text color */
+    body {      
+      color: #332; /* Main text color */
     }
     /* Prevent text selection */
     body, img {
@@ -27,65 +26,24 @@
     .hero-container {
       display: flex;
       align-items: center;
-      justify-content: space-between; /* Center elements horizontally */
+      justify-content: center; /* Center elements horizontally */
       padding: 100px 50px;
     }
     .hero-text {
       max-width: 600px; /* Limit width for better readability */
+      text-align:center;
     }
     .hero-text h1 {
-      font-size: 36px; /* Increased font size */
-      font-weight: bold;
+      font-size: 50px; /* Increased font size */
+      font-weight: 650;
       margin-bottom: 20px; /* Increased margin for better spacing */
       color: #222; /* Darker text color */
+      line-height:65px;
     }
     .hero-text p {
       font-size: 18px; /* Increased font size */
       margin-bottom: 30px; /* Increased margin for better spacing */
       color: #555; /* Slightly darker text color */
-    }
-    .hero-img-container {
-      flex: 1;
-      text-align: center;
-    }
-    .hero-img-container img {
-      max-width: 100%;
-      width: 800px; /* Adjusted image width for better proportion */
-    }
-    .top-students {
-      padding: 0 0 100px; /* Adjusted padding to create space at the bottom */
-      text-align: center;
-    }
-    .top-students h2 {
-      font-size: 36px;
-      font-weight: bold;
-      margin-bottom: 40px;
-      color: #333; /* Dark text color */
-    }
-    .podium {
-      display: flex;
-      justify-content: space-around;
-      align-items: flex-start;
-      margin-bottom: 40px;
-    }
-    .medal {
-      width: 200px;
-      text-align: center;
-    }
-    .medal .position {
-      font-size: 24px;
-      font-weight: bold;
-      margin-bottom: 10px;
-      color: #333; /* Dark text color */
-    }
-    .medal .user {
-      font-size: 18px;
-      margin-bottom: 5px;
-      color: #666; /* Dark grey text color */
-    }
-    .medal .points {
-      font-size: 16px;
-      color: #666; /* Dark grey text color */
     }
     footer {
       background-color: #222; /* Dark footer background */
@@ -99,132 +57,76 @@
     .footer-links a:hover {
       color: #e9ecef; /* Light text color on hover */
     }
-    /* Styling for the Get Started button */
+
     .btn-get-started1 { /* Dark blue background color */
-      color: #0056b3; /* White text color */
-      border: 1px solid #0056b3;
-      padding: 8px 20px;
-      font-size: 18px;
+      background-color: #1964FF;
+      color: #fff;
       font-weight: bold;
-      border-radius: 5px;
-      transition: background-color 0.3s ease, transform 0.3s ease, box-shadow 0.3s ease;
+      border-radius: 9px;
+      padding: 15px 25px;
+      text-decoration: none;
+      transition: 0.3s; 
+      box-shadow: 0px 2px 4px rgba(0, 78, 236, 0.22);
     }
+
     .btn-get-started1:hover {
-      background-color: #f5f5f5; /* Darker blue on hover */
-      border: 1px solid black;
-      transform: translateY(-3px);
+      background-color: #0050a3;
+      color: #fff;
+      text-decoration: none;
     }
-    .btn-get-started1:focus {
-      outline: none;
-      box-shadow: 0 0 0 0.2rem rgba(46, 59, 85, 0.5); /* Light shadow on focus */
-    }
-    .btn-get-started1:active {
-      background-color: #f5f5f5; /* Restore original color on click */
-      transform: translateY(1px); /* Slight downward movement on click */
-      box-shadow: none; /* Remove shadow on click */
-    }
-    .btn-get-started1 span {
+
+    .btn-ai-tools{
+      border: 2px solid #007bff;
       font-weight: bold;
-      font-size: 25px;
+      border-radius: 9px;
+      padding: 15px 25px;
+      transition: 0.3s; 
+      color: #007bff;
+      background-color: transparent;
+      text-decoration: none;
     }
-    .about-section {
-      padding: 50px 0;
-      text-align: center;
-      background-color: #fff;
+    .btn-ai-tools:hover{
+      background-color: rgb(246, 243, 243);
+      color: #007bff;
+      text-decoration: none;
     }
-    .about-section h2 {
-      font-size: 36px;
-      font-weight: bold;
-      margin-bottom: 30px;
-      color: #0056b3; /* Match the primary color */
-    }
-    .about-section p {
-      font-size: 18px;
-      color: #555;
-      max-width: 800px;
-      margin: 0 auto;
-    }
-    .card-container {
+
+    .button-container {
       display: flex;
+      align-items: center;
       justify-content: center;
-      gap: 20px;
-      margin-top: 30px;
-    }
-    .card {
-      border: none;
-      border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0,0,0,0.1);
-      overflow: hidden;
-      max-width: 300px;
-    }
-    .card img {
-      width: 100%;
-      height: auto;
-    }
-    .card-body {
-      padding: 20px;
-    }
-    .card-title {
-      font-size: 24px;
-      font-weight: bold;
-      color: #333;
-    }
-    .card-text {
-      font-size: 16px;
-      color: #555;
+      gap: 20px; /* Space between buttons */
+      flex-wrap: wrap; /* Ensure responsiveness on smaller screens */
+      margin-top: 40px; /* Added margin for spacing */
     }
   </style>
 </head>
 <body>
 
-<section class="hero">
-  <div class="container hero-container">
-    <div class="hero-text">
-      <h1>Choose Your Zen and Start Practising.</h1>
-      <p>Practice using 500+ AI-generated questions tailored for the IB &#128640;</p>
-      {% if user.is_authenticated %}
-      <a href="{% url 'main:zens' %}" class="btn btn-get-started1 btn-lg">Get Started <i class="fa-solid fa-arrow-right"></i></a>
-      {% else %}
-      <a href="{% url 'main:login' %}" class="btn btn-get-started1 btn-lg">Get Started<i class="fa-solid fa-arrow-right"></i></a>
-      {% endif %}
+  <section class="hero">
+    <div class="container hero-container">
+      <div class="hero-text">
+        <p style="background-color:#FFF7EF; color:#FF5C01; padding:10px 25px 10px 15px; line-height:16px; font-size:13.5px; border-radius: 50px; display:inline-block; font-weight:bold; margin-top:0px">
+          <img src="https://wayyy.co/site/img/icon-home-header-stars.svg" alt="Stars icon">
+          Practice questions and use AI tools to prep for IB &#128640;
+        </p>
+        <h1>Mix generated questions and AI tools to <span style="background-color:#cbf2d4; color:#55c26e; margin:0px; border-radius:9px; padding:0px">boost</span> your <span><i><u>IB score</u></i></span></h1>
+        
+        <div class="button-container">
+          {% if user.is_authenticated %}
+            <a href="{% url 'main:tools' %}" class="btn-ai-tools">AI Tools <i class="fa-solid fa-arrow-right"></i></a>
+            <a href="{% url 'main:zens' %}" class="btn-get-started1">Questions <i class="fa-solid fa-arrow-right"></i></a>
+          {% else %}
+            <a href="{% url 'main:login' %}" class="btn-ai-tools">AI Tools  <i class="fa-solid fa-arrow-right"></i></a>
+            <a href="{% url 'main:login' %}" class="btn-get-started1">Questions  <i class="fa-solid fa-arrow-right"></i></a>
+          {% endif %}
+        </div>
+      </div>
     </div>
-    <div class="hero-img-container">
-      <img src="{% static 'images/full.png' %}" alt="Access the questions through a questionbank or a test-taking feature" class="img-fluid">
-    </div>
-  </div>
-</section>
+  </section>
+  
 
-<section class="about-section">
-  <div class="container">
-    <h2 style="color: #222;">About Us</h2>
-    <!-- <p>Welcome to ExamZen, your go-to platform for practicing IB questions generated by our advanced AI. Our mission is to help students excel in their exams by providing a vast array of practice questions tailored to the IB curriculum. Whether you're looking to test your knowledge, improve your skills, or just get some extra practice, ExamZen is here to support you every step of the way.</p> -->
-    <div class="card-container">
-      <div class="card">
-        <i class="fa-solid fa-bullseye" style="font-size: 24px;"></i>
-        <div class="card-body">
-          <h5 class="card-title">Our Mission</h5>
-          <p class="card-text">To provide high-quality, AI-generated practice questions that help students excel in their IB exams.</p>
-        </div>
-      </div>
-      <div class="card">
-        <i class="fa-solid fa-binoculars" style="font-size: 24px;"></i>
-        <div class="card-body">
-          <h5 class="card-title">Our Vision</h5>
-          <p class="card-text">Adding as many subjects, with as many practice questions, with as many tools to assist students with prepping.</p>
-        </div>
-      </div>
-      <div class="card">
-        <i class="fa-solid fa-question" style="font-size: 24px;"></i>
-        <div class="card-body">
-          <h5 class="card-title">What's next?</h5>
-          <p class="card-text">New subjects with dozens of new practice questions. Checking tools available for several subjects, allowing you to get an accurate feedback. </p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<footer class="text-center" style="bottom: 0px; width: 100%;">
+{% comment %} <footer class="text-center" style="bottom: 0px; width: 100%;">
   <div class="container">
     <div class="d-flex justify-content-center">
       <div class="footer-links">
@@ -247,7 +149,7 @@
       </div>
     </div>
   </div>
-</footer>
+</footer> {% endcomment %}
 
 <!-- jQuery and Bootstrap JS -->
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
