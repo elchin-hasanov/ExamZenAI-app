@@ -22,5 +22,6 @@ urlpatterns = [
     path('profile/', views.profile, name='profile'),
     path('feedback/', views.feedback, name="feedback"),
     path('ai-tools/', views.tools, name="tools"),
+    path('lit_devices/', views.lit_devices, name="lit_devices"),
     
 ]

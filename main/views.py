@@ -308,3 +308,59 @@ def feedback(request):
 
 def tools(request):
     return render(request, "main/tools.html")
+
+
+def lit_devices(request):
+    literaryDevices = {
+            "Alliteration": "The repetition of the same initial consonant sounds in a sequence of words.",
+            "Foreshadowing": "A literary device used to give an indication or hint of what is to come later in the story.",
+            "Allegory": "A narrative that uses symbolic figures, actions, or events to convey a message or teach a lesson.",
+            "Motif": "A recurring element, theme, or idea in a literary work that has symbolic significance.",
+            "Simile": "A figure of speech that makes a comparison between two unlike things using 'like' or 'as'.",
+            "Colloquialism": "The use of informal language and slang in writing.",
+            "Anachronism": "A chronological inconsistency where something is placed outside of its proper time period.",
+            "Diction": "The choice and use of words and phrases in speech or writing.",
+            "Imagery": "Visually descriptive or figurative language used to create pictures in the reader's mind.",
+            "Personification": "Attributing human characteristics to non-human things or abstract ideas.",
+            "Euphemism": "A mild or indirect word or expression substituted for one considered too harsh or blunt.",
+            "Analogy": "A comparison between two things, typically for the purpose of explanation or clarification.",
+            "Hyperbole": "An exaggerated statement or claim not meant to be taken literally.",
+            "Antithesis": "A rhetorical device in which two opposite ideas are put together in a sentence for a contrasting effect.",
+            "Epigraph": "A short quotation or saying at the beginning of a book or chapter, intended to suggest its theme.",
+            "Juxtaposition": "The fact of two things being seen or placed close together with contrasting effect.",
+            "Onomatopoeia": "A word that phonetically imitates, resembles, or suggests the sound it describes.",
+            "Allusion": "An indirect or passing reference to an event, person, place, or artistic work.",
+            "Metaphor": "A figure of speech that describes an object or action in a way that isn’t literally true, but helps explain an idea.",
+            "Anthropomorphism": "The attribution of human characteristics or behavior to a god, animal, or object.",
+            "Irony": "A contrast or incongruity between expectations for a situation and what is reality.",
+            "Anaphora": "The repetition of a word or phrase at the beginning of successive clauses.",
+            "Oxymoron": "A figure of speech in which contradictory terms appear in conjunction.",
+            "Flashback": "A scene set in a time earlier than the main story.",
+            "Litotes": "A figure of speech that employs understatement by using double negatives or a positive statement expressed by negating its opposite.",
+            "Chiasmus": "A rhetorical or literary figure in which words, grammatical constructions, or concepts are repeated in reverse order.",
+            "Antanaclasis": "A rhetorical device in which a word or phrase is repeatedly used, but the meaning of the word changes in each case.",
+            "Rhetorical Question": "A question asked for effect or to make a point rather than to get an answer.",
+            "Asyndeton": "The omission or absence of a conjunction between parts of a sentence.",
+            "Parallelism": "The use of successive verbal constructions in poetry or prose that correspond in grammatical structure.",
+            "Apostrophe": "A figure of speech in which the speaker addresses someone absent, dead, or an inanimate object as if it were present and capable of responding.",
+            "Epiphora": "The repetition of a word or phrase at the end of successive clauses or sentences.",
+            "Anadiplosis": "A form of repetition in which the last word of one clause or sentence is repeated as the first word of the following clause or sentence.",
+            "Assonance": "The repetition of vowel sounds in nearby words.",
+            "Climax": "The most intense, exciting, or important point of a story; a culmination or apex.",
+            "Metonymy": "The substitution of the name of an attribute or adjunct for that of the thing meant.",
+            "Synecdoche": "A figure of speech in which a part is made to represent the whole or vice versa.",
+            "Polysyndeton": "The use of several conjunctions in close succession, especially where some could otherwise be omitted.",
+            "Zeugma": "A figure of speech in which a word applies to multiple parts of the sentence.",
+            "Ellipsis": "The omission from speech or writing of a word or words that are superfluous or able to be understood from contextual clues.",
+            "Epanalepsis": "A figure of speech in which the beginning of a clause or sentence is repeated at the end of that same clause or sentence.",
+            "Negative Space": "A visual device where the space around and between the subject(s) of an image is used to create another image or enhance the composition.",
+            "Gutter": "The space between panels in comics and graphic novels; often used to control pacing and narrative flow.",
+            "In Media Res": "A narrative that begins in the middle of the action.",
+            "Frame Narrative": "A story within a story, whereby the main narrative is presented at least in part, as an embedded story.",
+            "Circular Narrative": "A narrative device in which the story's conclusion returns to its starting point.",
+            "Anastrophe": "A form of literary device wherein the order of the noun and the adjective in the sentence is exchanged.",
+            "Aporia": "An expression of doubt or uncertainty by a speaker who seems unsure of how to proceed."
+        }
+    
+    
+    return render(request, 'main/lit_devices.html')
