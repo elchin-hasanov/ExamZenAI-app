@@ -92,15 +92,15 @@
             bottom: 0;
             width: 100%;
             z-index: 999; /* Ensure footer stays above content */
-          }
-          .footer-links a {
+        }
+        .footer-links a {
             color: #E0E5EC;
             margin: 0 10px;
             transition: color 0.3s ease;
-          }
-          .footer-links a:hover {
+        }
+        .footer-links a:hover {
             color: #A0B4DF;
-          }
+        }
     </style>
 </head>
 <body>
@@ -115,8 +115,7 @@
                             <li><i class="fas fa-check-circle"></i> This is the lobby page for the {{ subject }} subject.</li>
                             <li><i class="fas fa-check-circle"></i> The questions you will come across are not official IB questions.</li>
                             <li><i class="fas fa-check-circle"></i> Time given for the exams, does not represent the actual IB exam.</li>
-                            <li><i class="fas fa-check-circle"></i> Enjoy the practice <span>&#128521;</span>
-                            </li>
+                            <li><i class="fas fa-check-circle"></i> Enjoy the practice <span>&#128521;</span></li>
                         </ul>
                     </div>
                 </div>
@@ -126,43 +125,34 @@
         <div class="btn-container text-center">
             <button class="btn btn-custom btn-custom-primary" onclick="window.location.href='{% url 'main:test' %}?subject={{ subject }}'">Take a Test</button>
             <button class="btn btn-custom btn-custom-secondary" onclick="window.location.href='{% url 'main:questionbank' %}?subject_name={{ subject }}'">Question Bank</button>
+            
+            {% if subject == "English" %}
+            <button class="btn btn-custom btn-custom-secondary" style="background-color:#787bab;" onclick="window.location.href='{% url 'main:lit_devices' %}?subject={{ subject }}'">Literary Devices</button>
+            {% endif %}
         </div>
     </div>
-
     
-  <footer class="text-center" style="bottom: 0px; width: 100%;">
-    <div class="container">
-      <div class="d-flex justify-content-center">
-        <div class="footer-links">
-          <a
-            class="btn btn-link btn-floating btn-lg text-body m-1"
-            href="https://www.tiktok.com/@examzen0?_t=8oEvstTnaXU&_r=1"
-            target="_blank"
-            role="button">
-            <i class="fa-brands fa-tiktok" style="font-size:24px; color: #222;"></i>
-          </a>
+    <footer class="text-center" style="bottom: 0px; width: 100%;">
+        <div class="container">
+            <div class="d-flex justify-content-center">
+                <div class="footer-links">
+                    <a class="btn btn-link btn-floating btn-lg text-body m-1" href="https://www.tiktok.com/@examzen0?_t=8oEvstTnaXU&_r=1" target="_blank" role="button">
+                        <i class="fa-brands fa-tiktok" style="font-size:24px; color: #222;"></i>
+                    </a>
+                </div>
+                <div class="footer-links">
+                    <a class="btn btn-link btn-floating btn-lg text-body m-1" href="mailto:elchin.hasanov@dunyaschool.az" target="_blank" role="button">
+                        <i class="fa fa-google" style="font-size:24px; color: #222"></i>
+                    </a>
+                </div>
+                <div class="footer-links">
+                    <a class="btn btn-link btn-floating btn-lg text-body m-1" href="https://www.instagram.com/examzenai" target="_blank" role="button">
+                        <i class="fa fa-instagram" style="font-size:26px; color: #222; font-weight:bold"></i>
+                    </a>
+                </div>
+            </div>
         </div>
-        <div class="footer-links">
-          <a
-            class="btn btn-link btn-floating btn-lg text-body m-1"
-            href="mailto:elchin.hasanov@dunyaschool.az"
-            target="_blank"
-            role="button">
-            <i class="fa fa-google" style="font-size:24px; color: #222"></i>
-          </a>
-        </div>
-        <div class="footer-links">
-          <a
-            class="btn btn-link btn-floating btn-lg text-body m-1"
-            href="https://www.instagram.com/examzenai"
-            target="_blank"
-            role="button">
-            <i class="fa fa-instagram" style="font-size:26px; color: #222; font-weight:bold"></i>
-          </a>
-        </div>
-      </div>
-    </div>
-  </footer>
+    </footer>
 
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
