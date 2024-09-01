@@ -112,7 +112,37 @@
         .icon.incorrect {
             color: red;
         }
-        
+        @media (max-width: 768px) {
+            .container {
+                flex-direction: column;
+                width: 100%;
+            }
+            .list {
+                width: 100%;
+            }
+            .list-item {
+                font-size: 14px;
+            }
+            .restart-btn {
+                font-size: 14px;
+                padding: 8px 16px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            h2 {
+                font-size: 20px;
+                margin: 20px 10px;
+            }
+            .list-item {
+                font-size: 12px;
+                padding: 10px;
+            }
+            .restart-btn {
+                font-size: 12px;
+                padding: 6px 12px;
+            }
+        }
     </style>
 </head>
 <body>
@@ -130,7 +160,7 @@
         <div class="icon" id="popupIcon"></div>
         <div class="popup-content" id="popupContent">Incorrect Match! Try Again.</div>
     </div>
-    <audio id="correctSound" src="{% static 'images/success.m4a'  %}" preload="auto"></audio>
+    <audio id="correctSound" src="{% static 'images/success.wav'  %}" preload="auto"></audio>
     <audio id="wrongSound" src="{% static 'images/failure.wav'  %}" preload="auto"></audio>
 
     <script>
