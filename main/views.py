@@ -67,7 +67,7 @@ def lobby(request):
     subject = request.GET.get('subject', '')
     return render(request, 'main/lobby.html', {'subject': subject})
 
-@login_required
+# @login_required
 def questionbank(request):
     subject_name = request.GET.get('subject_name', '')
     if subject_name:
@@ -77,7 +77,7 @@ def questionbank(request):
         questions = Question.objects.all()  # Handle if no subject_name provided
     return render(request, 'main/questionbank.html', {'questions': questions, 'subject_name': subject_name})
 
-@login_required
+# @login_required
 def question_answer(request, question_id):
     question = get_object_or_404(Question, id=question_id)
     choices = question.choices.split('\\n') if question.choices else []
