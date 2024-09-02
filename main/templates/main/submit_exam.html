@@ -24,9 +24,12 @@
                 {% for question in paper1_instance.questions.all %}
                 <div class="mb-5">
                     <h6>{{ forloop.counter }}. {{ question.text }}</h6>
-                    {% for choice in question.split_str %}
-                        <p class="mb-2">{{ choice }}</p>
-                    {% endfor %}
+                    {% if question.split_str %}
+                        {% for choice in question.split_str %}
+                            <p class="mb-2">{{ choice }}</p>
+                        {% endfor %}
+                    {% endif %}
+
                     <p style="margin-top: 10px;"><strong>Correct Answer:</strong> {{ question.answer }}</p>
                 </div>
                 {% endfor %}

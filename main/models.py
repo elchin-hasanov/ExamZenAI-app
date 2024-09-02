@@ -23,7 +23,9 @@ class Question(models.Model):
     topic = models.CharField(max_length=150, blank=True)
 
     def split_str(self):
-        return self.choices.split('\\n')
+        if self.choices:
+            return self.choices.split('\\n')
+        return []
 
     def __str__(self):
         return self.text
