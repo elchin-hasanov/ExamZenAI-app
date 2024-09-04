@@ -147,8 +147,8 @@
             <a href="{% url 'main:tools' %}" class="btn-ai-tools">Apps </a>
             <a href="{% url 'main:zens' %}" class="btn-get-started1">Questions</a>
           {% else %}
-            <a href="{% url 'main:login' %}" class="btn-ai-tools">Apps</a>
-            <a href="{% url 'main:login' %}" class="btn-get-started1">Questions</a>
+            <a href="{% provider_login_url 'google' %}?next=/" class="btn-ai-tools">Apps</a>
+            <a href="{% provider_login_url 'google' %}?next=/" class="btn-get-started1">Questions</a>
           {% endif %}
         </div>
       </div>
