@@ -130,7 +130,14 @@
     .social-icon img:hover {
       opacity: 0.7; /* Slightly fade icon on hover */
     }
-    
+    @media (min-width: 768px) {
+      .hero-container {
+        padding: 100px 50px;
+      }
+      .hero-text h1 {
+        font-size: 3rem;
+      }
+    }
   </style>
 </head>
 <body>
@@ -147,8 +154,8 @@
             <a href="{% url 'main:tools' %}" class="btn-ai-tools">Apps </a>
             <a href="{% url 'main:zens' %}" class="btn-get-started1">Questions</a>
           {% else %}
-            <a href="{% provider_login_url 'google' %}" class="btn-ai-tools">Apps</a>
-            <a href="{% provider_login_url 'google' %}" class="btn-get-started1">Questions</a>
+            <a href="{% url 'main:login' %}" class="btn-ai-tools">Apps</a>
+            <a href="{% url 'main:login' %}" class="btn-get-started1">Questions</a>
           {% endif %}
         </div>
       </div>
@@ -165,13 +172,13 @@
           <p style="font-size: 18px; color: #555555; margin: 20px 0;">
             Practice with 100% free exam-style questions specific to your curriculum. The questions are AI-Generated.
           </p>
-          <a href="{% provider_login_url 'google' %}" class="btn btn-primary" style="background-color: #F05D23; border: none; padding: 15px 30px; font-size: 18px; border-radius: 30px;">
-            Start learning - it's free
+          <a href="{% url 'main:zens' %}" class="btn btn-primary" style="background-color: #F05D23; border: none; padding: 15px 30px; font-size: 18px; border-radius: 30px;">
+            Start practising - it's free
           </a>
         </div>
       </div>
       <div class="col-md-6 text-center">
-        <img src="path/to/your/image.png" alt="Feature Image" style="max-width: 100%; height: auto;">
+        <img src="{% static 'images/screen1.png' %}" alt="Feature Image" style= "width:600px;">
       </div>
     </div>
   </section>
@@ -180,17 +187,17 @@
   <section class="feature-section" style="background-color: #E0F7FA; padding: 60px 0;">
     <div class="container d-flex align-items-center">
       <div class="col-md-6 text-center">
-        <img src="path/to/your/image.png" alt="Feature Image" style="max-width: 100%; height: auto;">
+        <img src="{% static 'images/screen2.png' %}" alt="Feature Image" style="max-width: 100%; width:1000px;">
       </div>
       <div class="col-md-6" style="padding-left: 40px;">
         <div class="text-content">
-          <h3 style="color: #00796B; font-size: 18px; font-weight: bold; margin-bottom: 20px;">STUDY MATERIAL</h3>
-          <h1 style="font-size: 48px; font-weight: bold; color: #004D40;">Comprehensive and Up-to-date Resources</h1>
+          <h3 style="color: #00796B; font-size: 18px; font-weight: bold; margin-bottom: 20px;">AI TOOLS</h3>
+          <h1 style="font-size: 48px; font-weight: bold; color: #004D40;">Comprehensive Tools for Specific Studying</h1>
           <p style="font-size: 18px; color: #555555; margin: 20px 0;">
-            Access a wide range of study materials and tools to enhance your learning experience and stay ahead in your studies.
+            Access a wide range of AI tools that enable you to improve the specific skills needed to succeed in different subjects.
           </p>
-          <a href="{% provider_login_url 'google' %}" class="btn btn-primary" style="background-color: #00796B; border: none; padding: 15px 30px; font-size: 18px; border-radius: 30px;">
-            Explore Resources
+          <a href="{% url 'main:tools' %}" class="btn btn-primary" style="background-color: #00796B; border: none; padding: 15px 30px; font-size: 18px; border-radius: 30px;">
+            Explore Tools
           </a>
         </div>
       </div>
@@ -203,18 +210,18 @@
       <div class="container d-flex align-items-center">
         <div class="col-md-6" style="padding-right: 40px;">
           <div class="text-content">
-            <h3 style="color: #4CAF50; font-size: 18px; font-weight: bold; margin-bottom: 20px;">CUSTOM STUDY PLANS</h3>
-            <h1 style="font-size: 48px; font-weight: bold; color: #1B5E20;">Tailored to Your Needs</h1>
+            <h3 style="color: #4CAF50; font-size: 18px; font-weight: bold; margin-bottom: 20px;">TEST TAKING</h3>
+            <h1 style="font-size: 48px; font-weight: bold; color: #1B5E20;">Take paper 1 and paper 2 tests for your favorite subjects</h1>
             <p style="font-size: 18px; color: #555555; margin: 20px 0;">
-              Create personalized study plans with tools designed to fit your individual learning style and goals.
+             Study with the tests personalized to you. Some of the tests have the ability to check the answers as well!
             </p>
-            <a href="{% provider_login_url 'google' %}" class="btn btn-primary" style="background-color: #4CAF50; border: none; padding: 15px 30px; font-size: 18px; border-radius: 30px;">
+            <a href="{% url 'main:login' %}" class="btn btn-primary" style="background-color: #4CAF50; border: none; padding: 15px 30px; font-size: 18px; border-radius: 30px;">
               Get started today
             </a>
           </div>
         </div>
         <div class="col-md-6 text-center">
-          <img src="path/to/your/image.png" alt="Feature Image" style="max-width: 100%; height: auto;">
+          <img src="{% static 'images/screen3.png' %}" alt="Feature Image" style="max-width: 100%; height: auto;">
         </div>
       </div>
     </section>

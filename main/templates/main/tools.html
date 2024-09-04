@@ -11,53 +11,60 @@
   <!-- Bootstrap CSS -->
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
   <style>
-    body{
-        background-color: #f5f5f5;
-
+    body {
+      background-color: #f5f5f5;
     }
     .tools-container {
       display: flex;
-      justify-content: center;
+      flex-direction: column;
       align-items: center;
-      flex-wrap: wrap;
       margin-top: 50px;
     }
     .tool-card {
-      margin: 15px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin: 20px 0;
+      width: 100%;
+      max-width: 800px;
       border-radius: 10px;
-      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-      transition: transform 0.3s ease;
-      text-align: center;
-      max-width: 300px;
+      box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+      background-color: #ffffff;
+      border: 1px solid #e6e6e6;
       padding: 20px;
-      background-color: #fff;
     }
     .tool-card:hover {
-      transform: translateY(-10px);
+      transform: translateY(-5px);
+      box-shadow: 0 8px 16px rgba(0, 0, 0, 0.1);
     }
     .tool-card img {
-      max-width: 200px;
-      {% comment %} margin-bottom: 10px; {% endcomment %}
+      max-width: 100px;
+      margin-right: 20px;
+    }
+    .tool-card-content {
+      flex-grow: 1;
     }
     .tool-card h5 {
-      font-size: 24px;
+      font-size: 22px;
       margin-bottom: 10px;
-      color: #007bff;
+      color: #333;
     }
     .tool-card p {
       font-size: 16px;
       color: #555;
+      margin-bottom: 0;
     }
     .tool-card a {
       display: inline-block;
-      margin-top: 15px;
       padding: 10px 20px;
       background-color: #007bff;
-      color: #fff;
+      color: #ffffff;
       text-decoration: none;
       border-radius: 5px;
       font-weight: bold;
       transition: background-color 0.3s ease;
+      margin-left: 20px;
     }
     .tool-card a:hover {
       background-color: #0056b3;
@@ -68,10 +75,21 @@
 
   <div class="container tools-container">
     <div class="tool-card">
-        <img src="{% static 'images/doc.png' %}" style="width:150px" alt="Tool 1">
-      <h5 style = 'color:#FF5C01'>English Paper 2</h5>
-      <p>The following tool can accurately assess the essay based on the criteria for English paper 2. </p>
-      <a style = 'color:#FF5C01; background-color:#faead9' href="{% url 'main:test' %}?subject=English" >Use Tool</a>
+      <img src="{% static 'images/paper.png' %}" alt="English Paper 2">
+      <div class="tool-card-content">
+        <h5>English Paper 2</h5>
+        <p>The following tool can accurately assess the essay based on the criteria for English paper 2.</p>
+      </div>
+      <a href="{% url 'main:test' %}?subject=English">Use</a>
+    </div>
+
+    <div class="tool-card">
+      <img src="{% static 'images/litdevice.png' %}" alt="English Literary Devices">
+      <div class="tool-card-content">
+        <h5>English Literary Devices</h5>
+        <p>The following tool will help you learn the literary devices needed to score high in English A.</p>
+      </div>
+      <a href="{% url 'main:lit_devices' %}">Use</a>
     </div>
   </div>
 

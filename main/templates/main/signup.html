@@ -1,121 +1,199 @@
+{% block content %}
 {% load static %}
+{% load socialaccount %}
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Sign Up</title>
-    <!-- Bootstrap CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
-    <style>
-        /* Custom styles for the sign-up form */
-        body {
-            background-color: #f5f5f5; /* Light grey background color */
-            font-family: "Manrope", sans-serif;
-            color: #333; /* Main text color */
-        }
-        .container {
-            max-width: 400px;
-            margin: 0 auto;
-            padding-top: 100px;
-        }
-        .primary-heading {
-            color: #222; /* Darker color for contrast */
-            text-align: center;
-            margin-bottom: 30px;
-        }
-        .form-group label {
-            color: #222; /* Darker color for labels */
-        }
-        .form-control {
-            background-color: #fff; /* White background for input fields */
-            border-color: #4C647A; /* Light green border for input fields */
-            color: #333; /* Dark text color for input fields */
-            border-radius: 10px;
-            padding: 10px 15px;
-            margin-bottom: 20px;
-        }
-        .btn-primary {
-            background-color: #2e3b55; /* Dark blue button color */
-            border: none;
-            border-radius: 25px;
-            color: #fff; /* White text color */
-            font-weight: bold;
-            text-transform: uppercase;
-            letter-spacing: 1px;
-            padding: 10px 30px;
-            margin-top: 20px;
-            transition: background-color 0.3s ease, box-shadow 0.3s ease;
-            display: block;
-            margin: 20px auto 10px; /* Centered button and adjusted margin */
-        }
-        .btn-primary:hover {
-            background-color: #374a5e; /* Darker shade on hover */
-            box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
-        }
-        p a {
-            color: #2e3b55; /* Dark blue color for links */
-            text-decoration: underline; /* Added underline for better link indication */
-        }
-        p a:hover {
-            color: #4c647a; /* Highlight color on hover */
-            text-decoration: none; /* Removed underline on hover for clarity */
-        }
-        .error-message {
-            color: #ff5252; /* Error message color */
-            font-size: 14px;
-            margin-top: 5px;
-            list-style-type: none; /* Remove bullet point */
-            font-family: "Helvetica Neue", sans-serif;
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Sign Up</title>
+  <!-- Bootstrap CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
+  <style>
+    /* Custom styles for the sign-up form */
+    body {
+      background-color: #f5f5f5; /* Light grey background color */
+      font-family: 'Poppins', sans-serif;
+      color: #333; /* Main text color */
+      overflow-x: hidden;
+      margin: 0;
+    }
+    .signup-container {
+      max-width: 500px;
+      margin: 100px auto; /* Center container vertically */
+      padding: 30px;
+      background-color: #fff; /* White background for the form */
+      border-radius: 15px; /* Rounded corners */
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow */
+    }
+    .signup-header {
+      text-align: center;
+      margin-bottom: 30px;
+    }
+    .signup-header h1 {
+      font-size: 36px;
+      color: #222; /* Darker color for contrast */
+      margin-bottom: 10px;
+    }
+    .signup-header p {
+      color: #555;
+      font-size: 16px;
+    }
+    .form-group label {
+      color: #222; /* Darker color for labels */
+    }
+    .form-control {
+      border-radius: 10px;
+      background-color: #f9f9f9; /* Slightly off-white background for input fields */
+      border: 1px solid #ddd; /* Light grey border for input fields */
+      color: #333; /* Dark text color for input fields */
+    }
+    .btn-primary {
+      background-color: #1964FF; /* Dark blue button color */
+      border: none;
+      border-radius: 25px;
+      color: #fff; /* White text color */
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 10px 30px;
+      margin: 20px auto; /* Centered button and adjusted margin */
+      display: block; /* Ensures button is centered */
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .btn-primary:hover {
+      background-color: #0050a3; /* Darker shade on hover */
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); /* Subtle shadow on hover */
+    }
+    .btn-google {
+      background-color: white; /* White background for Google button */
+      border: 1px solid #ddd; /* Light grey border */
+      border-radius: 25px;
+      color: #333; /* Dark text color */
+      font-weight: bold;
+      text-transform: uppercase;
+      letter-spacing: 1px;
+      padding: 10px 30px;
+      margin: 10px auto; /* Centered button and adjusted margin */
+      display: block; /* Ensures button is centered */
+      transition: background-color 0.3s ease, box-shadow 0.3s ease;
+    }
+    .btn-google:hover {
+      background-color: #1964FF; /* Google blue on hover */
+      box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.1); 
+      color: #fff; /* White text color */
+    }
+    .signup-footer {
+      text-align: center;
+      margin-top: 20px;
+    }
+    .signup-footer p {
+      color: #555;
+      font-size: 14px;
+    }
+    .signup-footer p a {
+      color: #1964FF; /* Dark blue color for links */
+      text-decoration: underline;
+    }
+    .signup-footer p a:hover {
+      color: #004c99; /* Darker blue on hover */
+      text-decoration: none;
+    }
+    .google-icon {
+      width: 20px; /* Adjust the size as needed */
+      height: auto; /* Maintain aspect ratio */
+      margin-right: 8px; /* Space between icon and text */
+      vertical-align: middle; /* Align icon with text */
+    }
+    .or-separator {
+      text-align: center;
+      margin: 20px 0;
+      position: relative;
+    }
+    .or-separator::before,
+    .or-separator::after {
+      content: "";
+      height: 1px;
+      width: 40%;
+      background-color: #ddd;
+      position: absolute;
+      top: 50%;
+    }
+    .or-separator::before {
+      left: 0;
+    }
+    .or-separator::after {
+      right: 0;
+    }
+    .or-separator span {
+      background-color: #fff;
+      padding: 0 10px;
+      color: #555;
+    }
+    .error-message {
+      color: #ff5252; /* Error message color */
+      font-size: 14px;
+      margin-top: 5px;
+      list-style-type: none; /* Remove bullet point */
+      font-family: "Poppins", sans-serif;
+    }
+  </style>
 </head>
-{% block content %}
 <body>
-
-    <div class="container">
-        <h1 class="primary-heading">Sign Up to Your Account</h1>
-        <form method="post" action="{% url 'main:signup' %}" >
-            {% csrf_token %}
-            <div class="form-group">
-                <label for="{{ form.username.id_for_label }}">Username</label>
-                <input type="text" name="{{ form.username.name }}" id="{{ form.username.id_for_label }}" class="form-control" oninput="sanitizeUsername(event)">
-                <span class="error-message">{{ form.username.errors }}</span>
-            </div>
-            <div class="form-group">
-                <label for="{{ form.password1.id_for_label }}">Password</label>
-                <input type="password" name="{{ form.password1.name }}" id="{{ form.password1.id_for_label }}" class="form-control">
-                <span class="error-message">{{ form.password1.errors }}</span>
-            </div>
-            <div class="form-group">
-                <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
-                <input type="password" name="{{ form.password2.name }}" id="{{ form.password2.id_for_label }}" class="form-control">
-                <span class="error-message">{{ form.password2.errors }}</span>
-            </div>
-            <button type="submit" class="btn btn-primary">Sign Up</button>
-        </form>
-        <p style="text-align: center;">Already have an account? <a href="{% url 'main:login' %}">Log in</a></p>
+  <div class="container signup-container">
+    <div class="signup-header">
+      <h1 style="margin-bottom:40px">Sign Up to ExamZen</h1>
     </div>
+    <form method="post" action="{% url 'main:signup' %}">
+      {% csrf_token %}
+      <div class="form-group">
+        <label for="{{ form.username.id_for_label }}">Username</label>
+        <input type="text" name="{{ form.username.name }}" id="{{ form.username.id_for_label }}" class="form-control" oninput="sanitizeUsername(event)">
+        <span class="error-message">{{ form.username.errors }}</span>
+      </div>
+      <div class="form-group">
+        <label for="{{ form.password1.id_for_label }}">Password</label>
+        <input type="password" name="{{ form.password1.name }}" id="{{ form.password1.id_for_label }}" class="form-control">
+        <span class="error-message">{{ form.password1.errors }}</span>
+      </div>
+      <div class="form-group">
+        <label for="{{ form.password2.id_for_label }}">Confirm Password</label>
+        <input type="password" name="{{ form.password2.name }}" id="{{ form.password2.id_for_label }}" class="form-control">
+        <span class="error-message">{{ form.password2.errors }}</span>
+      </div>
+      <button type="submit" class="btn btn-primary">Sign Up</button>
+    </form>
 
-    <script>
-        function sanitizeUsername(event) {
-            var input = event.target;
-            var sanitizedValue = input.value.toLowerCase().replace(/[^a-z0-9]/g, '');
-            input.value = sanitizedValue;
-        }
-    </script>
+    <div class="or-separator"><span>or</span></div>
+
+    <form action="{% provider_login_url 'google' %}" method="post">
+      {% csrf_token %}
+      <button type="submit" class="signup-with-google-btn btn-google">
+        <img src="{% static 'images/googleno.png' %}" alt="Google Icon" class="google-icon">
+        Sign Up with Google
+      </button>
+    </form>
+
+    <div class="signup-footer">
+      <p>Already have an account? <a href="{% url 'main:login' %}">Log in here</a></p>
+    </div>
+  </div>
+
+  <script>
+    function sanitizeUsername(event) {
+      var input = event.target;
+      var sanitizedValue = input.value.toLowerCase().replace(/[^a-z0-9]/g, '');
+      input.value = sanitizedValue;
+    }
+  </script>
+
+  <!-- JavaScript -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
-
-
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-J32YXFX8W0"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-J32YXFX8W0');
-</script>
 </html>
 {% endblock %}
