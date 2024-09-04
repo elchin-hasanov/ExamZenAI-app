@@ -147,8 +147,8 @@
             <a href="{% url 'main:tools' %}" class="btn-ai-tools">Apps </a>
             <a href="{% url 'main:zens' %}" class="btn-get-started1">Questions</a>
           {% else %}
-            <a href="{% provider_login_url 'google' %}?next=/" class="btn-ai-tools">Apps</a>
-            <a href="{% provider_login_url 'google' %}?next=/" class="btn-get-started1">Questions</a>
+            <a href="{% provider_login_url 'google' %}" class="btn-ai-tools">Apps</a>
+            <a href="{% provider_login_url 'google' %}" class="btn-get-started1">Questions</a>
           {% endif %}
         </div>
       </div>
@@ -165,7 +165,7 @@
           <p style="font-size: 18px; color: #555555; margin: 20px 0;">
             Practice with 100% free exam-style questions specific to your curriculum. The questions are AI-Generated.
           </p>
-          <a href="{% provider_login_url 'google' %}?next=/" class="btn btn-primary" style="background-color: #F05D23; border: none; padding: 15px 30px; font-size: 18px; border-radius: 30px;">
+          <a href="{% provider_login_url 'google' %}" class="btn btn-primary" style="background-color: #F05D23; border: none; padding: 15px 30px; font-size: 18px; border-radius: 30px;">
             Start learning - it's free
           </a>
         </div>
@@ -189,7 +189,7 @@
           <p style="font-size: 18px; color: #555555; margin: 20px 0;">
             Access a wide range of study materials and tools to enhance your learning experience and stay ahead in your studies.
           </p>
-          <a href="{% provider_login_url 'google' %}?next=/" class="btn btn-primary" style="background-color: #00796B; border: none; padding: 15px 30px; font-size: 18px; border-radius: 30px;">
+          <a href="{% provider_login_url 'google' %}" class="btn btn-primary" style="background-color: #00796B; border: none; padding: 15px 30px; font-size: 18px; border-radius: 30px;">
             Explore Resources
           </a>
         </div>
@@ -208,7 +208,7 @@
             <p style="font-size: 18px; color: #555555; margin: 20px 0;">
               Create personalized study plans with tools designed to fit your individual learning style and goals.
             </p>
-            <a href="{% provider_login_url 'google' %}?next=/" class="btn btn-primary" style="background-color: #4CAF50; border: none; padding: 15px 30px; font-size: 18px; border-radius: 30px;">
+            <a href="{% provider_login_url 'google' %}" class="btn btn-primary" style="background-color: #4CAF50; border: none; padding: 15px 30px; font-size: 18px; border-radius: 30px;">
               Get started today
             </a>
           </div>
