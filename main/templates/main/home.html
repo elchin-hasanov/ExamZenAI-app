@@ -1,6 +1,6 @@
 {% extends 'main/layout.html' %}
 {% load static %}
-
+{% load socialaccount %}
 {% block content %}
 <!DOCTYPE html>
 <html lang="en">
@@ -13,15 +13,10 @@
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;700&display=swap" rel="stylesheet">
   <style>
     /* Custom styles for the home page */
-    body {      
+    body {
       color: #332; /* Main text color */
-    }
-    /* Prevent text selection */
-    body, img {
-      user-select: none;
-      -webkit-user-select: none;
-      -moz-user-select: none;
-      -ms-user-select: none;
+      overflow-x: hidden;
+      margin: 0;
     }
     .hero-container {
       display: flex;
@@ -31,14 +26,14 @@
     }
     .hero-text {
       max-width: 600px; /* Limit width for better readability */
-      text-align:center;
+      text-align: center;
     }
     .hero-text h1 {
       font-size: 50px; /* Increased font size */
       font-weight: 650;
       margin-bottom: 20px; /* Increased margin for better spacing */
       color: #222; /* Darker text color */
-      line-height:65px;
+      line-height: 65px;
     }
     .hero-text p {
       font-size: 18px; /* Increased font size */
@@ -57,7 +52,6 @@
     .footer-links a:hover {
       color: #e9ecef; /* Light text color on hover */
     }
-
     .btn-get-started1 { /* Dark blue background color */
       background-color: #1964FF;
       color: #fff;
@@ -68,29 +62,26 @@
       transition: 0.3s; 
       box-shadow: 0px 2px 4px rgba(0, 78, 236, 0.22);
     }
-
     .btn-get-started1:hover {
       background-color: #0050a3;
       color: #fff;
       text-decoration: none;
     }
-
-    .btn-ai-tools{
+    .btn-ai-tools {
       border: 2px solid #007bff;
       font-weight: bold;
       border-radius: 9px;
-      padding: 15px 25px;
+      padding: 14px 35px;
       transition: 0.3s; 
       color: #007bff;
       background-color: transparent;
       text-decoration: none;
     }
-    .btn-ai-tools:hover{
+    .btn-ai-tools:hover {
       background-color: rgb(246, 243, 243);
       color: #007bff;
       text-decoration: none;
     }
-
     .button-container {
       display: flex;
       align-items: center;
@@ -99,38 +90,50 @@
       flex-wrap: nowrap; /* Prevent wrapping */
       margin-top: 40px; /* Added margin for spacing */
     }
-    
     @media (max-width: 576px) { /* Target smaller screens like phones */
       .button-container {
         flex-wrap: nowrap; /* Keep buttons in a single row */
       }
-      .btn-ai-tools .btn-get-started1{
+      .btn-ai-tools .btn-get-started1 {
         padding: 15px 40px;
       }
     }
-    
+    .feature-section {
+      opacity: 0; /* Initially hidden */
+      transform: translateY(50px); /* Move it down initially */
+      transition: opacity 0.8s ease-out, transform 0.8s ease-out;
+    }
+    .feature-section.appear {
+      opacity: 1;
+      transform: translateY(0);
+    }
     footer {
-      background-color:#f5f3f2;
-      color: #E0E5EC;
-      margin-top: 75px;
-      padding:5px 0;
-      position: fixed;
-      bottom: 0;
-      width: 100%;
-      z-index: 999; /* Ensure footer stays above content */
+      background-color:white;
+      color: 000; 
+      padding: 20px 0;
+      text-align: center; /* Center-align text and icons */
     }
-    .footer-links a {
-      color: #E0E5EC;
-      margin: 0 10px;
-      transition: color 0.3s ease;
+    
+    .social-icons {
+      margin-top: 10px;
     }
-    .footer-links a:hover {
-      color: #A0B4DF;
+    
+    .social-icon {
+      margin: 0 10px; /* Space between icons */
+      display: inline-block;
     }
+    
+    .social-icon img {
+      transition: opacity 0.3s ease;
+    }
+    
+    .social-icon img:hover {
+      opacity: 0.7; /* Slightly fade icon on hover */
+    }
+    
   </style>
 </head>
 <body>
-
   <section class="hero">
     <div class="container hero-container">
       <div class="hero-text">
@@ -139,43 +142,107 @@
           Practice questions and use AI tools to prep for IB &#128640;
         </p>
         <h1>Mix generated questions and AI tools to <span style="background-color:#cbf2d4; color:#55c26e; margin:0px; border-radius:9px; padding:0px 10px">boost</span> your <span><i><u>IB score</u></i></span></h1>
-        
         <div class="button-container">
           {% if user.is_authenticated %}
-            <a href="{% url 'main:tools' %}" class="btn-ai-tools">AI Tools <i class="fa-solid fa-arrow-right"></i></a>
-            <a href="{% url 'main:zens' %}" class="btn-get-started1">Questions <i class="fa-solid fa-arrow-right"></i></a>
+            <a href="{% url 'main:tools' %}" class="btn-ai-tools">Apps </a>
+            <a href="{% url 'main:zens' %}" class="btn-get-started1">Questions</a>
           {% else %}
-            <a href="{% url 'main:login' %}" class="btn-ai-tools">AI Tools  <i class="fa-solid fa-arrow-right"></i></a>
-            <a href="{% url 'main:login' %}" class="btn-get-started1">Questions  <i class="fa-solid fa-arrow-right"></i></a>
+            <a href="{% url 'main:login' %}" class="btn-ai-tools">Apps</a>
+            <a href="{% url 'main:login' %}" class="btn-get-started1">Questions</a>
           {% endif %}
         </div>
       </div>
     </div>
   </section>
-  
 
-  <footer class="text-center" style="bottom: 0px; width: 100%;">
-    <div class="container">
-      <div class="d-flex justify-content-center">
-        <div class="footer-links">
+  <!-- Section 1 -->
+  <section class="feature-section" style="background-color: #FAF4EF; padding: 60px 0;">
+    <div class="container d-flex align-items-center">
+      <div class="col-md-6" style="padding-right: 40px;">
+        <div class="text-content">
+          <h3 style="color: #F05D23; font-size: 18px; font-weight: bold; margin-bottom: 20px;">QUESTIONBANK</h3>
+          <h1 style="font-size: 48px; font-weight: bold; color: #1D1D1D;">Grind with exam-style questions</h1>
+          <p style="font-size: 18px; color: #555555; margin: 20px 0;">
+            Practice with 100% free exam-style questions specific to your curriculum. The questions are AI-Generated.
+          </p>
+          <a href="{% provider_login_url 'google' %}?next=/" class="btn btn-primary" style="background-color: #F05D23; border: none; padding: 15px 30px; font-size: 18px; border-radius: 30px;">
+            Start learning - it's free
+          </a>
+        </div>
+      </div>
+      <div class="col-md-6 text-center">
+        <img src="path/to/your/image.png" alt="Feature Image" style="max-width: 100%; height: auto;">
+      </div>
+    </div>
+  </section>
+
+  <!-- Section 2 -->
+  <section class="feature-section" style="background-color: #E0F7FA; padding: 60px 0;">
+    <div class="container d-flex align-items-center">
+      <div class="col-md-6 text-center">
+        <img src="path/to/your/image.png" alt="Feature Image" style="max-width: 100%; height: auto;">
+      </div>
+      <div class="col-md-6" style="padding-left: 40px;">
+        <div class="text-content">
+          <h3 style="color: #00796B; font-size: 18px; font-weight: bold; margin-bottom: 20px;">STUDY MATERIAL</h3>
+          <h1 style="font-size: 48px; font-weight: bold; color: #004D40;">Comprehensive and Up-to-date Resources</h1>
+          <p style="font-size: 18px; color: #555555; margin: 20px 0;">
+            Access a wide range of study materials and tools to enhance your learning experience and stay ahead in your studies.
+          </p>
+          <a href="{% provider_login_url 'google' %}?next=/" class="btn btn-primary" style="background-color: #00796B; border: none; padding: 15px 30px; font-size: 18px; border-radius: 30px;">
+            Explore Resources
+          </a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+
+    <!-- Section 3 -->
+    <section class="feature-section" style="padding: 60px 0;">
+      <div class="container d-flex align-items-center">
+        <div class="col-md-6" style="padding-right: 40px;">
+          <div class="text-content">
+            <h3 style="color: #4CAF50; font-size: 18px; font-weight: bold; margin-bottom: 20px;">CUSTOM STUDY PLANS</h3>
+            <h1 style="font-size: 48px; font-weight: bold; color: #1B5E20;">Tailored to Your Needs</h1>
+            <p style="font-size: 18px; color: #555555; margin: 20px 0;">
+              Create personalized study plans with tools designed to fit your individual learning style and goals.
+            </p>
+            <a href="{% provider_login_url 'google' %}?next=/" class="btn btn-primary" style="background-color: #4CAF50; border: none; padding: 15px 30px; font-size: 18px; border-radius: 30px;">
+              Get started today
+            </a>
+          </div>
+        </div>
+        <div class="col-md-6 text-center">
+          <img src="path/to/your/image.png" alt="Feature Image" style="max-width: 100%; height: auto;">
+        </div>
+      </div>
+    </section>
+
+
+    <footer>
+      <div class="container text-center">
+        <p style="margin: 10px 0; color: #000;">
+          &copy; 2024 ExamZen. All rights reserved.
+        </p>
+        <p style="margin: 10px 0; color: #000; font-size:12px">
+          ExamZen was developed independently of the IBO and as such is not endorsed by it in any way.
+        </p>
+        <div class="social-icons">
           <a
             class="btn btn-link btn-floating btn-lg text-body m-1"
             href="https://www.tiktok.com/@examzen0?_t=8oEvstTnaXU&_r=1"
             target="_blank"
             role="button">
-            <i class="fa-brands fa-tiktok" style="font-size:24px; color: #222;"></i>
+            <i class="fa-brands fa-tiktok" style="color: #222;"></i>
           </a>
-        </div>
-        <div class="footer-links">
           <a
             class="btn btn-link btn-floating btn-lg text-body m-1"
             href="mailto:elchin.hasanov@dunyaschool.az"
             target="_blank"
             role="button">
-            <i class="fa fa-google" style="font-size:24px; color: #222"></i>
+            <i class="fa fa-google" style="color: #222"></i>
           </a>
-        </div>
-        <div class="footer-links">
           <a
             class="btn btn-link btn-floating btn-lg text-body m-1"
             href="https://www.instagram.com/examzenai"
@@ -185,23 +252,35 @@
           </a>
         </div>
       </div>
-    </div>
-  </footer>
+    </footer>
+    
 
-<!-- jQuery and Bootstrap JS -->
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.16.0/umd/popper.min.js"></script>
-<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
+  <!-- JavaScript -->
+  <script>
+    document.addEventListener('DOMContentLoaded', function () {
+      const observer = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('appear');
+          } else {
+            entry.target.classList.remove('appear');
+          }
+        });
+      }, {
+        threshold: 0.2
+      });
 
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-J32YXFX8W0"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
+      const featureSections = document.querySelectorAll('.feature-section');
+      featureSections.forEach(section => {
+        observer.observe(section);
+      });
+    });
+  </script>
 
-  gtag('config', 'G-J32YXFX8W0');
-</script>
-
+  <!-- Bootstrap JS, Popper.js, and jQuery -->
+  <script src="https://code.jquery.com/jquery-3.5.1.slim.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.5.4/dist/umd/popper.min.js"></script>
+  <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 </body>
 </html>
 {% endblock %}
