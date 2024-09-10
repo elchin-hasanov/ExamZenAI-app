@@ -193,8 +193,8 @@
         <h1>Mix generated questions and AI tools to <span style="background-color:#cbf2d4; color:#55c26e; margin:0px; border-radius:9px; padding:0px 10px">boost</span> your <span><i><u>IB score</u></i></span></h1>
         <div class="button-container">
           {% if user.is_authenticated %}
-            <a href="{% url 'main:tools' %}" class="btn-ai-tools">Apps </a>
-            <a href="{% url 'main:zens' %}" class="btn-get-started1">Questions</a>
+            <a href="{% url 'main:tools' %}" class="btn-ai-tools">AI Tools</a>
+            <a href="{% url 'main:zens' %}" class="btn-get-started1">Practice</a>
           {% else %}
             <a href="{% url 'main:login' %}" class="btn-ai-tools">Apps</a>
             <a href="{% url 'main:login' %}" class="btn-get-started1">Questions</a>
