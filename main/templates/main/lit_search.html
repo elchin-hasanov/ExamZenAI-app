@@ -1,0 +1,243 @@
+{% extends 'main/layout.html' %}
+{% block content %}
+<div class="container">
+    <h2 class="header">Literary Device Highlighter</h2>
+
+    <!-- Display the text initially -->
+    <div id="text-box" class="text-box">
+        <p id="text-content">{{ text }}</p>
+    </div>
+
+    <!-- Highlight button to enable highlighting functionality -->
+    <button id="highlight-btn" class="btn btn-highlight" disabled>Highlight Selection</button>
+
+    <!-- Form for submitting highlights -->
+    <form method="get" action="{% url 'main:lit_search' %}" class="form-submit">
+        <input type="hidden" name="text" value="{{ text }}">
+        <button type="submit" name="submit" class="btn btn-submit">Submit</button>
+    </form>
+
+    <!-- Show the result only after submission -->
+    {% if result %}
+    <div class="result-box">
+        <h3>Result:</h3>
+        <p>{{ result }}</p>
+    </div>
+    {% endif %}
+</div>
+
+<div id="highlight-form" class="highlight-form">
+    <label for="literary-device">Enter Literary Device:</label>
+    <input type="text" id="literary-device" name="literary-device" class="form-control">
+    <button id="save-highlight" class="btn btn-save">Save</button>
+</div>
+
+<script>
+    function generateUniqueSessionId() {
+        return Math.random().toString(36).substr(2, 9);
+    }
+
+    const sessionId = generateUniqueSessionId();
+    let selectedRange = null;
+
+    window.addEventListener('load', function() {
+        // Optional: clear local storage on page load
+        // localStorage.removeItem("highlights");
+    });
+
+    document.addEventListener("mouseup", function() {
+        const selection = window.getSelection();
+        const selectedText = selection.toString();
+        const highlightBtn = document.getElementById("highlight-btn");
+
+        if (selectedText.trim()) {
+            highlightBtn.disabled = false;
+            selectedRange = selection.getRangeAt(0);
+        } else {
+            highlightBtn.disabled = true;
+        }
+    });
+
+    document.getElementById("highlight-btn").addEventListener("click", function() {
+        const highlightForm = document.getElementById("highlight-form");
+
+        if (selectedRange) {
+            highlightForm.style.display = "block";
+
+            const rect = selectedRange.getBoundingClientRect();
+            highlightForm.style.top = `${rect.top + window.scrollY + 30}px`;
+            highlightForm.style.left = `${rect.left + window.scrollX}px`;
+        }
+    });
+
+    document.getElementById("save-highlight").addEventListener("click", function() {
+        const deviceName = document.getElementById("literary-device").value;
+        const selectedText = selectedRange.toString();
+
+        let span = document.createElement("span");
+        span.style.backgroundColor = "yellow";
+        span.textContent = selectedText;
+        selectedRange.deleteContents();
+        selectedRange.insertNode(span);
+
+        const highlights = JSON.parse(localStorage.getItem("highlights")) || [];
+        highlights.push({ text: selectedText, literary_device: deviceName, session: sessionId });
+        localStorage.setItem("highlights", JSON.stringify(highlights));
+
+        fetch('/save-highlight/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json',
+                'X-CSRFToken': getCookie('csrftoken')
+            },
+            body: JSON.stringify({ text: selectedText, literary_device: deviceName, session: sessionId })
+        })
+        .then(response => response.json())
+        .then(data => {
+            if (data.status === 'success') {
+                document.getElementById("literary-device").value = "";
+                document.getElementById("highlight-form").style.display = "none";
+                selectedRange = null;
+            } else {
+                console.error('Failed to save highlight');
+            }
+        });
+    });
+
+    function getCookie(name) {
+        let cookieValue = null;
+        if (document.cookie && document.cookie !== '') {
+            const cookies = document.cookie.split(';');
+            for (let i = 0; i < cookies.length; i++) {
+                const cookie = cookies[i].trim();
+                if (cookie.substring(0, name.length + 1) === (name + '=')) {
+                    cookieValue = decodeURIComponent(cookie.substring(name.length + 1));
+                    break;
+                }
+            }
+        }
+        return cookieValue;
+    }
+</script>
+
+<style>
+    body {
+        background-color: #f5f5f5;
+        margin: 0;
+        padding: 20px;
+    }
+
+    .container {
+        max-width: 800px;
+        margin: 0 auto;
+        padding: 20px;
+        background-color: white;
+        border-radius: 10px;
+        box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+    }
+
+    .header {
+        font-size: 28px;
+        margin-bottom: 20px;
+        color: #333;
+        text-align: center;
+    }
+
+    .text-box {
+        border: 1px solid #ddd;
+        padding: 20px;
+        background-color: #fafafa;
+        border-radius: 10px;
+        line-height: 1.6;
+        color: #555;
+        margin-bottom: 20px;
+        max-height: 400px;
+        overflow-y: auto;
+    }
+
+    .btn {
+        display: inline-block;
+        padding: 10px 20px;
+        font-size: 16px;
+        border-radius: 5px;
+        text-decoration: none;
+        cursor: pointer;
+        transition: background-color 0.3s ease, color 0.3s ease;
+        border: none;
+        outline: none;
+    }
+
+    .btn-highlight {
+        background-color: #007bff;
+        color: white;
+        margin-top: 10px;
+    }
+
+    .btn-highlight:disabled {
+        background-color: #ccc;
+        cursor: not-allowed;
+    }
+
+    .btn-highlight:hover:not(:disabled) {
+        background-color: #0056b3;
+    }
+
+    .btn-submit {
+        background-color: #28a745;
+        color: white;
+        margin-top: 20px;
+    }
+
+    .btn-submit:hover {
+        background-color: #218838;
+    }
+
+    .highlight-form {
+        position: absolute;
+        display: none;
+        padding: 15px;
+        background-color: #fff;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+        z-index: 100;
+    }
+
+    .form-control {
+        width: 100%;
+        padding: 10px;
+        margin: 10px 0;
+        border-radius: 5px;
+        border: 1px solid #ddd;
+        font-size: 16px;
+    }
+
+    .btn-save {
+        background-color: #28a745;
+        color: white;
+    }
+
+    .btn-save:hover {
+        background-color: #218838;
+    }
+
+    span {
+        background-color: yellow;
+        padding: 2px 4px;
+        border-radius: 3px;
+    }
+
+    .result-box {
+        margin-top: 20px;
+        padding: 15px;
+        background-color: #e6ffe6;
+        border-radius: 8px;
+        border: 1px solid #ccffcc;
+        color: #333;
+    }
+
+    .form-submit {
+        text-align: center;
+    }
+</style>
+{% endblock %}

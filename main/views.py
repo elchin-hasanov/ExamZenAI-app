@@ -17,6 +17,19 @@ import json
 import re
 import openai
 from django.contrib.staticfiles import finders
+from django.shortcuts import render
+from django.http import JsonResponse
+from difflib import SequenceMatcher
+import openai
+import json
+from django.http import JsonResponse
+from django.views.decorators.csrf import csrf_exempt
+from .models import Highlight
+
+# Configure your OpenAI API key
+admin_user = User.objects.get(username='apikey')
+latest_test = Test.objects.filter(user=admin_user).order_by('-created_at').first()
+openai.api_key = latest_test.answers
 
 
 def home(request):
@@ -203,10 +216,6 @@ def profile(request):
     
     return render(request, 'main/profile.html', context)
 
-from django.contrib.auth.models import User
-from main.models import Test
-import os
-
 @login_required
 def feedback(request):
     selected_question_id = request.POST.get('selected_question_id', '')
@@ -309,6 +318,24 @@ def feedback(request):
 def tools(request):
     return render(request, "main/tools.html")
 
+@csrf_exempt
+def save_highlight(request):
+    if request.method == 'POST':
+        data = json.loads(request.body)
+        highlighted_text = data.get('text')
+        literary_device = data.get('literary_device')
+        session_id = data.get('session')
+
+        highlight = Highlight(
+            user=request.user,
+            highlighted_text=highlighted_text,
+            literary_device=literary_device,
+            session=session_id
+        )
+        highlight.save()
+
+        return JsonResponse({'status': 'success'})
+    return JsonResponse({'status': 'error'}, status=400)
 
 def lit_devices(request):
     literaryDevices = {
@@ -364,3 +391,91 @@ def lit_devices(request):
     
     
     return render(request, 'main/lit_devices.html')
+
+def generate_paragraph_with_literary_devices():
+    # Generate a paragraph with literary devices
+        response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a creative writer."},
+            {"role": "user", "content": "Write a 25-50 line paragraph with various literary devices. Do not label the devices."}
+        ],
+        max_tokens=500,
+        temperature=0.7
+    )
+    
+        paragraph = response['choices'][0]['message']['content'].strip()
+        return paragraph
+
+def check_literary_devices(paragraph, device_dict):
+    # Step 1: Analyze all literary devices comprehensively
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a literary analyst. Your task is to identify all literary devices in a given paragraph and evaluate the user's identification of these devices."},
+            {"role": "user", "content": f"Analyze the following paragraph and comprehensively identify all the literary devices present. Provide the analysis in the format: 'Sentence: \"...\", device_name: \"...\"'. Note that some phrases may contain multiple literary devices.\n\nParagraph:\n{paragraph}"}
+        ],
+        max_tokens=300,
+        temperature=0.3
+    )
+
+    # Get the comprehensive analysis from the AI
+    comprehensive_analysis = response['choices'][0]['message']['content'].strip()
+
+    # Step 2: Check user's entry against the comprehensive analysis
+    user_input_feedback = "Evaluate the user's highlighted literary devices. For each entry, indicate whether it is correct or incorrect based on the comprehensive analysis provided. If the user has missed any devices, list them separately with brief explanations for each missed device."
+
+    # Prepare the formatted user input for clarity
+    formatted_user_input = "\n".join([f'User input: "{phrase}" - {device}' for phrase, device in device_dict.items()])
+
+    response = openai.ChatCompletion.create(
+        model="gpt-3.5-turbo",
+        messages=[
+            {"role": "system", "content": "You are a literary analyst."},
+            {"role": "user", "content": f"{user_input_feedback}\n\nParagraph:\n{paragraph}\n\nComprehensive Analysis:\n{comprehensive_analysis}\n\n{formatted_user_input}"}
+        ],
+        max_tokens=350,
+        temperature=0.3
+    )
+
+    # Get the result of the user's dictionary check
+    result = response['choices'][0]['message']['content'].strip()
+    
+    return result
+
+from django.shortcuts import render
+from .models import Highlight
+
+
+def lit_search(request):
+    if 'submit' in request.GET:
+        # User has submitted, process the highlights and show the result
+        text = request.GET.get('text')  # Retrieve the generated text that was passed in the form
+
+        latest_highlight = Highlight.objects.filter(user=request.user).order_by('-id').first()
+        latest_session = latest_highlight.session if latest_highlight else None
+
+        highlights_dict = {}  # Fetch the user's highlights from the database or session (placeholder)
+        
+        highlights = Highlight.objects.filter(user=request.user).order_by('id')
+
+        for highlight in highlights:
+        # Only store highlights from previous sessions, ignore the current one
+            if highlight.session == latest_session:
+               highlights_dict[highlight.highlighted_text] = highlight.literary_device
+            else:
+               break
+
+
+        # Evaluate user's highlights against the correct literary devices (function to be implemented)
+        result = check_literary_devices(text, highlights_dict)  # Compare highlights with correct ones
+
+        # Render the same template with the result
+        return render(request, 'main/lit_search.html', {'text': text, 'result': result})
+
+    # Initial page load (generates the text)
+    text = generate_paragraph_with_literary_devices()
+
+    # No result yet, since the user hasn't submitted
+    return render(request, 'main/lit_search.html', {'text': text, 'result': None})
+

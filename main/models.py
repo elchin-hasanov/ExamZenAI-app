@@ -46,3 +46,13 @@ class Test(models.Model):
 
     def __str__(self):
         return f"{self.subject.name} - Paper {self.paper}"
+
+class Highlight(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    highlighted_text = models.TextField()
+    literary_device = models.CharField(max_length=255)
+    session = models.CharField(max_length=255)
+
+    def __str__(self):
+        return f"{self.user} - {self.highlighted_text[:20]}... ({self.literary_device})"
+
